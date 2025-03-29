@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Employee Dashboard</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <script>
+        async function fetchSessions() {
+            const response = await fetch('/api/appointments');
+            const sessions = await response.json();
+            const sessionList = document.getElementById('sessions');
+            sessionList.innerHTML = '';
+            sessions.forEach(session => {
+                const listItem = document.createElement('li');
+                listItem.innerHTML = `
+                    <strong>Booker ID:</strong> ${session.bookerid} <br>
+                    <strong>Title:</strong> ${session.title} <br>
+                    <strong>Notes:</strong> ${session.notes || 'None'} <br>
+                    <textarea id="note-${session.id}" placeholder="Add notes"></textarea>
+                    <button onclick="addNote(${session.id})">Save Note</button>
+                `;
+                sessionList.appendChild(listItem);
+            });
+        }
+
+        async function addNote(sessionId) {
+            const note = document.getElementById(`note-${sessionId}`).value;
+            await fetch(`/api/appointments/${sessionId}/note`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ notes: note }),
+            });
+            fetchSessions();
+        }
+
+        window.onload = fetchSessions;
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Employee Dashboard</h1>
+        <ul id="sessions"></ul>
+    </div>
+</body>
+</html>

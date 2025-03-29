@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Book Appointment</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <script>
+        // Populate bookerid from query parameters or session storage
+        window.onload = function () {
+            const urlParams = new URLSearchParams(window.location.search);
+            const bookerid = urlParams.get('bookerid') || sessionStorage.getItem('bookerid');
+            if (bookerid) {
+                document.getElementById('bookerid').value = bookerid;
+                sessionStorage.setItem('bookerid', bookerid); // Save for future use
+            }
+        };
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Book an Appointment</h1>
+        <form action="/api/appointments" method="post">
+            <label for="bookerid">ID:</label><br>
+            <input type="text" id="bookerid" name="bookerid" readonly><br>
+            <label for="title">Appointment Reason:</label><br>
+            <input type="text" id="title" name="title" required><br>
+            <label for="startdate">Start Date and Time:</label><br>
+            <input type="datetime-local" id="startdate" name="startdate" required><br>
+            <label for="enddate">End Date and Time:</label><br>
+            <input type="datetime-local" id="enddate" name="enddate" required><br>
+            <label for="reason">Reason:</label><br>
+            <input type="text" id="reason" name="reason" required><br>
+            <label for="employeeid">Employee ID:</label><br>
+            <input type="text" id="employeeid" name="employeeid" required><br>
+            <label for="notes">Notes:</label><br>
+            <input type="text" id="notes" name="notes"><br>
+            <button type="submit">Submit</button>
+            <button type="reset">Reset</button>
+        </form>
+    </div>
+</body>
+</html>

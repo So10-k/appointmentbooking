@@ -3,6 +3,6 @@ const Sequelize = require('sequelize');
 const sequelize = new Sequelize({
     dialect: 'sqlite',
     storage: 'db/database.sqlite'
-})
+});
 
-module.exports = { sequelize }
+module.exports = sequelize; // Export the sequelize instance directly

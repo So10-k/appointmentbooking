@@ -1,34 +1,35 @@
-const DataTypes = require('sequelize').DataTypes;
-const sequelize = require('../db/database.js');
+const { DataTypes } = require('sequelize');
+const sequelize = require('../../db/database.js'); // Import the sequelize instance directly
+
 const Appointment = sequelize.define('Appointments', {
     bookerid: {
         type: DataTypes.INTEGER,
-        allownull: false,
+        allowNull: false, // Fixed typo: "allownull" -> "allowNull"
     },
     title: {
         type: DataTypes.STRING,
-        allownull: false,
+        allowNull: false,
     },
     startdate: {
         type: DataTypes.DATE,
-        allownull: false,
+        allowNull: false,
     },
     enddate: {
         type: DataTypes.DATE,
-        allownull: false,
+        allowNull: false,
     },
     reason: {
         type: DataTypes.STRING,
-        allownull: false,
+        allowNull: false,
     },
     employeeid: {
         type: DataTypes.INTEGER,
-        allownull: false,
+        allowNull: false,
     },
     notes: {
         type: DataTypes.STRING,
-        allownull: false,
+        allowNull: false,
     },
 });
 
-module.exports = { Appointments }
+module.exports = { Appointments: Appointment };
